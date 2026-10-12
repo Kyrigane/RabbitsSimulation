@@ -1,0 +1,20 @@
+#include <stdbool.h>
+
+#define MAX_RABBITS 10000
+
+typedef struct rabbit{
+    int age_month;
+    bool is_pregnant;
+    bool is_alive;
+    bool is_adult;
+    bool is_female;
+} Rabbit;
+
+bool chooseGender(Rabbit * r); //Genre d'un lapin, loi de Bernoulli avec p=0.5
+int chooseNbLitterPerYear(Rabbit * r); //Nombre de portées par an d'une lapine, loi normale centrée sur 6 avec un écart type de 1.5
+bool choosePregnancy(Rabbit * r, int nbLitter); //Si une lapine est enceinte ou non, p déterminé par le nombre de portées par an choisi précédemment
+int chooseNbNewborns(Rabbit * r); //Nombre de lapereaux par portée, loi uniforme entre 3 et 6
+int getMonthsToMaturity(Rabbit * r); //Nombre de mois pour qu'un lapin devienne adulte, loi uniforme entre 5 et 8
+bool isDead(Rabbit * r); //Si un lapin meurt ou non, loi de Bernoulli avec p dépendant de l'âge du lapin
+void updateRabbit(Rabbit * r); //Met à jour l'état d'un lapin (âge, maturité, grossesse, décès)
+void showRabbit(Rabbit * r); //Affiche les informations d'un lapin
