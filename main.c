@@ -1,8 +1,5 @@
 #include "./fibonacci.h"
 #include "./rabbit.h"
-#include "./population.h"
-
-#include <stdio.h>
 
 int main(){
     printf("======================================================\n");

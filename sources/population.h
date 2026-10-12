@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include "rabbit.h"
 
 // Type size_t est plus adapté pour la taille et capacité : non signé et plus grand que int
