@@ -1,6 +1,10 @@
 #include <stdbool.h>
 #include "mt19937.h"
 
+#ifndef M_PI
+#define M_PI (3.14159265358979323846)
+#endif
+
 // Type bool est plus optimisé que int : utilise moins de mémoire et plus rapide à comparer
 
 typedef struct rabbit{
@@ -13,7 +17,7 @@ typedef struct rabbit{
 
 void initRabbit(Rabbit * r); //Initialise un lapin
 bool chooseGender(); //Genre d'un lapin, loi de Bernoulli avec p=0.5
-int chooseNbLitterPerYear(Rabbit * r); //Nombre de portées par an d'une lapine, loi normale centrée sur 6 avec un écart type de 1.5
+int chooseNbLitterPerYear(); //Nombre de portées par an d'une lapine, loi normale centrée sur 6 avec un écart type de 1.5
 bool choosePregnancy(Rabbit * r, int nbLitter); //Si une lapine est enceinte ou non, p déterminé par le nombre de portées par an choisi précédemment
 int chooseNbNewborns(Rabbit * r); //Nombre de lapereaux par portée, loi uniforme entre 3 et 6
 int getMonthsToMaturity(Rabbit * r); //Nombre de mois pour qu'un lapin devienne adulte, loi uniforme entre 5 et 8
