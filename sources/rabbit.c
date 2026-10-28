@@ -15,11 +15,20 @@ bool chooseGender() {
 // Méthode de Box-Muller pour générer un nombre aléatoire suivant une loi normale centrée réduite
 int chooseNbLitterPerYear() {
     double mean = 6; 
-    double stddev = 1.5;
+    double stddev = 1.2;
     double u1 = genrand_real1();
     double u2 = genrand_real1();
     double z0 = sqrt(-2.0 * log(u1)) * cos(2.0 * M_PI * u2);
     int nbLitter = (int)(round(mean + z0 * stddev));
     if (nbLitter < 1) nbLitter = 1; 
     return nbLitter;
+}
+
+bool choosePregnancy(Rabbit * r, int nbLitter) {
+    if (!r->is_female || !r->is_alive || r->is_pregnant) {
+        return false; 
+    }
+    double p = nbLitter / 12.0;
+    double random_value = genrand_real1();
+    return random_value < p;
 }

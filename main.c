@@ -23,16 +23,27 @@ int main(){
     printf("Simulation avec la population de lapins:\n");
 
     //test du choix du nombre de portées par an d'une lapine
-    /*
-    int test;
-    int compteur[12]={0};
+    int nbLitter;
+    int count_litter[13]={0};
     for (int i=0; i <= 10000; i++) {
-        test = chooseNbLitterPerYear();
-        compteur[test]++;
+        nbLitter = chooseNbLitterPerYear();
+        count_litter[nbLitter]++;
     }
-    for (int i=0; i < 12; i++) {
-        printf("Nombre de portées de %d: %d\n", i, compteur[i]);
+    for (int i=0; i < 13; i++) {
+        printf("Nombre de portées par an %d: %d\n", i, count_litter[i]);
     }
-    */
+
+    //test du choix de la grossesse d'une lapine
+    Rabbit r;
+    initRabbit(&r);
+    bool pregnancy;
+    for (int i=0; i < 120; i++) {
+        if (i % 12 == 0) {
+            nbLitter = chooseNbLitterPerYear();
+        }
+        pregnancy = choosePregnancy(&r, nbLitter);
+        printf("Mois %d: Lapine enceinte : %d (Portées par an: %d)\n", i, pregnancy, nbLitter);
+    }
+
     return 0;
 }
