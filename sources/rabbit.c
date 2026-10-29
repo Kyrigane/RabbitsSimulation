@@ -5,6 +5,7 @@ void initRabbit(Rabbit * r) {
     r->is_pregnant = false;
     r->is_alive = true;
     r->is_adult = false;
+    chooseNbLitterPerYear(r);
     chooseGender(r);
 }
 
@@ -14,7 +15,7 @@ void chooseGender(Rabbit * r) {
 
 // Méthode de Box-Muller pour générer un nombre aléatoire suivant une loi normale centrée réduite
 void chooseNbLitterPerYear(Rabbit * r) {
-    if (!r->is_female || !r->is_alive || r->age_month % 12 != 0) {
+    if (!r->is_female || !r->is_alive) {
         return; 
     }
     double mean = 6; 
@@ -91,6 +92,9 @@ int updateRabbit(Rabbit * r) {
     chooseMaturity(r);
     chooseDeath(r);
     if (r->is_female && r->is_adult) {
+        if (r->age_month % 12 == 0) {
+            chooseNbLitterPerYear(r);
+        }
         if (r->is_pregnant) {
             return chooseNbNewborns(r);
         }
@@ -107,4 +111,8 @@ void showRabbit(Rabbit * r) {
     }
     printf("Adulte: %s | ", r->is_adult ? "Oui" : "Non");
     printf("Vivant: %s\n", r->is_alive ? "Oui" : "Non");
+}
+
+void freeRabbit(Rabbit * r) {
+    free(r);
 }
