@@ -63,5 +63,23 @@ int main(){
         printf("Nombre de lapereaux par portée, %d: %d\n", i+3, countNewborns[i]);
     }
 
+    // test du choix de la maturité d'un lapin
+    int countMaturity[4]={0};
+    for (int i=0; i < 10000; i++) {
+        r.is_adult = false;
+        for (int month = 5; month < 9; month++) {
+            r.age_month = month;
+            chooseMaturity(&r);
+            if (r.is_adult) {
+                countMaturity[month - 5]++;
+                break; 
+            }
+        }
+    }
+    printf("Nombre de lapins devenus adultes par mois:\n");
+    for (int i=0; i < 4; i++) {
+        printf("Mois %d: %d\n", i + 5, countMaturity[i]);
+    }
+
     return 0;
 }

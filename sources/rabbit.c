@@ -5,11 +5,11 @@ void initRabbit(Rabbit * r) {
     r->is_pregnant = false;
     r->is_alive = true;
     r->is_adult = false;
-    r->is_female = chooseGender();
+    chooseGender(r);
 }
 
-bool chooseGender() {
-    return genrand_real1() < 0.5; 
+void chooseGender(Rabbit * r) {
+    r->is_female = genrand_real1() < 0.5; 
 }
 
 // Méthode de Box-Muller pour générer un nombre aléatoire suivant une loi normale centrée réduite
@@ -40,4 +40,27 @@ int chooseNbNewborns(Rabbit * r) {
         return 0; 
     }
     return (int)(genrand_real1() * 4) + 3; 
+}
+
+// On passe par une loi de Bernouilli avec p qui dépend du mois (âge) du lapin.
+void chooseMaturity(Rabbit * r) {
+    if (r->is_adult || !r->is_alive) {
+        return; 
+    }
+    switch (r->age_month) {
+        case 5:
+            r->is_adult = genrand_real1() < 0.25;
+            break;
+        case 6:
+            r->is_adult = genrand_real1() < 0.33;
+            break;
+        case 7:
+            r->is_adult = genrand_real1() < 0.5;
+            break;
+        case 8:
+            r->is_adult = true;
+            break;
+        default:
+            break;
+    }
 }
