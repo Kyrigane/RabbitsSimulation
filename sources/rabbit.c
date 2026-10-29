@@ -39,6 +39,7 @@ int chooseNbNewborns(Rabbit * r) {
     if (!r->is_pregnant || !r->is_female || !r->is_alive) {
         return 0; 
     }
+    r->is_pregnant = false;
     return (int)(genrand_real1() * 4) + 3; 
 }
 
@@ -80,4 +81,30 @@ void chooseDeath(Rabbit * r) {
     }
     float monthlySurvivalRate = powf(annualSurvivalRate, 1.0 / 12.0);
     r->is_alive = genrand_real1() < monthlySurvivalRate;
+}
+
+int updateRabbit(Rabbit * r) {
+    if (!r->is_alive) {
+        return 0; 
+    }
+    r->age_month++;
+    chooseMaturity(r);
+    chooseDeath(r);
+    if (r->is_female && r->is_adult) {
+        if (r->is_pregnant) {
+            return chooseNbNewborns(r);
+        }
+        choosePregnancy(r);
+    }
+    return 0;
+}
+
+void showRabbit(Rabbit * r) {
+    printf("Age (mois): %d | ", r->age_month);
+    printf("Genre: %s | ", r->is_female ? "Femelle" : "Mâle");
+    if (r->is_female) {
+        printf("Enceinte: %s | ", r->is_pregnant ? "Oui" : "Non");
+    }
+    printf("Adulte: %s | ", r->is_adult ? "Oui" : "Non");
+    printf("Vivant: %s\n", r->is_alive ? "Oui" : "Non");
 }

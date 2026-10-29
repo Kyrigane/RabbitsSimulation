@@ -102,5 +102,18 @@ int main(){
         printf("Lapins morts à l'âge de %d ans: %d\n", i, countDeath[i]);
     }
 
+    // test de la mise à jour d'un lapin et de l'affichage de ses informations
+    for (int i=0; i < 10; i++) {
+        initRabbit(&r);
+        for (int month = 0; month < 240; month++) {
+            updateRabbit(&r);
+            showRabbit(&r);
+            if (!r.is_alive) {
+                printf("Le lapin est mort à l'âge de %d mois.\n", r.age_month);
+                break;
+            }
+        }
+    }
+
     return 0;
 }

@@ -23,6 +23,6 @@ void choosePregnancy(Rabbit * r); //Si une lapine est enceinte ou non, Bernoulli
 int chooseNbNewborns(Rabbit * r); //Nombre de lapereaux par portée, loi uniforme entre 3 et 6
 void chooseMaturity(Rabbit * r); //Choisit si un lapin devient adulte, loi uniforme entre 5 et 8 (mois)
 void chooseDeath(Rabbit * r); //Si un lapin meurt ou non, loi de Bernoulli avec p dépendant de l'âge du lapin
-void updateRabbit(Rabbit * r); //Met à jour l'état d'un lapin (âge, maturité, grossesse, décès)
+int updateRabbit(Rabbit * r); //Met à jour l'état d'un lapin (âge, maturité, grossesse, décès), renvoie le nombre de lapereaux nés
 void showRabbit(Rabbit * r); //Affiche les informations d'un lapin
 void freeRabbit(Rabbit * r); //Libère la mémoire allouée pour un lapin
