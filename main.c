@@ -23,31 +23,31 @@ int main(){
     printf("Simulation avec la population de lapins:\n");
 
     //test du choix du nombre de portées par an d'une lapine
-    int nbLitter;
+    Rabbit r;
+    initRabbit(&r);
+    r.is_female = true; // on force le genre pour tester les fonctions
     int countLitter[13]={0};
     for (int i=0; i <= 10000; i++) {
-        nbLitter = chooseNbLitterPerYear();
-        countLitter[nbLitter]++;
+        chooseNbLitterPerYear(&r);
+        countLitter[r.nb_litter_per_year]++;
     }
     for (int i=0; i < 13; i++) {
         printf("Nombre de portées par an, %d: %d\n", i, countLitter[i]);
     }
 
     //test du choix de la grossesse d'une lapine
-    Rabbit r;
-    initRabbit(&r);
-    bool pregnancy;
     int nbLitterReal=0;
     for (int i=0; i < 120; i++) {
         if (i % 12 == 0) {
-            nbLitter = chooseNbLitterPerYear();
+            chooseNbLitterPerYear(&r);
         }
-        pregnancy = choosePregnancy(&r, nbLitter);
-        if (pregnancy) {
+        choosePregnancy(&r);
+        if (r.is_pregnant) {
             nbLitterReal++;
         }
+        r.is_pregnant = false; // on réinitialise pour le test
         if (i % 12 == 11) {
-            printf("Année %d: Portées par an attendues : %d (Portées réelles : %d)\n", i/12 + 1, nbLitter, nbLitterReal);
+            printf("Année %d: Portées par an attendues : %d (Portées réelles : %d)\n", i/12 + 1, r.nb_litter_per_year, nbLitterReal);
             nbLitterReal = 0;
         }
     }
@@ -55,7 +55,6 @@ int main(){
     // test du choix du nombre de lapereaux par portée d'une lapine
     int countNewborns[4]={0};
     for (int i=0; i < 10000; i++) {
-        initRabbit(&r);
         r.is_pregnant = true;
         int nbNewborns = chooseNbNewborns(&r);
         countNewborns[nbNewborns - 3]++;
