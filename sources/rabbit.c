@@ -64,3 +64,20 @@ void chooseMaturity(Rabbit * r) {
             break;
     }
 }
+
+void chooseDeath(Rabbit * r) {
+    float annualSurvivalRate=0.6; // Valeur par défaut pour les lapins adultes
+    if (!r->is_alive) {
+        return; 
+    }
+    if (!r->is_adult) {
+        annualSurvivalRate = 0.35;
+    } else if ((r->age_month / 12) >= 15){
+        annualSurvivalRate = 0;
+    } 
+    else if ((r->age_month / 12) >= 10) {
+        annualSurvivalRate -= 0.1 * ((r->age_month / 12) - 9);
+    }
+    float monthlySurvivalRate = powf(annualSurvivalRate, 1.0 / 12.0);
+    r->is_alive = genrand_real1() < monthlySurvivalRate;
+}

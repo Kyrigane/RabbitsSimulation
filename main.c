@@ -81,5 +81,26 @@ int main(){
         printf("Mois %d: %d\n", i + 5, countMaturity[i]);
     }
 
+    // test du choix de la mort d'un lapin au cours des années
+    int countDeath[16]={0};
+    for (int i=0; i < 100000; i++) {
+        r.is_adult = false;
+        r.is_alive = true;
+        for (int month = 0; month < 16 * 12; month++) {
+            r.age_month = month;
+            if (!r.is_adult) {
+                chooseMaturity(&r);
+            }
+            chooseDeath(&r);
+            if (!r.is_alive) {
+                countDeath[month / 12]++;
+                break; 
+            }
+        }
+    }
+    for (int i=0; i < 16; i++) {
+        printf("Lapins morts à l'âge de %d ans: %d\n", i, countDeath[i]);
+    }
+
     return 0;
 }
