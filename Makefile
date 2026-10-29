@@ -1,12 +1,17 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Isources
-SOURCES = $(wildcard *.c sources/*.c)
-OBJECTS = $(SOURCES:.c=.o)
+LDLIBS = -lm
 
-all: rabbit.exe
+COMMON_SOURCES = $(wildcard sources/*.c)
+COMMON_OBJECTS = $(COMMON_SOURCES:.c=.o)
 
-rabbit.exe: $(OBJECTS)
-	$(CC) $(CFLAGS) $^ -lm -o $@
+all: simulation.exe tests.exe
+
+simulation.exe: simulation.o $(COMMON_OBJECTS)
+	$(CC) $^ $(LDLIBS) -o $@
+
+tests.exe: tests.o $(COMMON_OBJECTS)
+	$(CC) $^ $(LDLIBS) -o $@
 
 clean:
-	del /Q $(subst /,\,$(OBJECTS)) rabbit.exe
+	del /Q $(subst /,\,$(COMMON_OBJECTS)) simulation.o tests.o simulation.exe tests.exe
