@@ -1,5 +1,6 @@
 #include "./fibonacci.h"
 #include "./population.h"
+#include "time.h"
 
 int main(){
     unsigned long init[4]={0x123, 0x234, 0x345, 0x456}, length=4;
@@ -23,15 +24,18 @@ int main(){
     printf("Simulation avec la population de lapins:\n");
 
     RabbitPopulation population;
+    clock_t startTime;
+    clock_t endTime;
+    double timeSpent=0;
 
     for (int iPopulation = 0; iPopulation < 10; iPopulation++) {
-        Rabbit * femelle = (Rabbit *)malloc(sizeof(Rabbit));
-        Rabbit * male = (Rabbit *)malloc(sizeof(Rabbit));
-        initRabbit(femelle);
-        initRabbit(male);
+        Rabbit femelle;
+        Rabbit male;
+        initRabbit(&femelle);
+        initRabbit(&male);
         // On force le genre pour avoir un couple de lapins
-        femelle->is_female = true; 
-        male->is_female = false;
+        femelle.is_female = true; 
+        male.is_female = false;
         initRabbitPopulation(&population, 10);
         addRabbitToPopulation(&population, femelle);
         addRabbitToPopulation(&population, male);
@@ -40,7 +44,9 @@ int main(){
         printf("Simulation de la population de lapins %d:\n", iPopulation + 1);
         printf("===========================\n");
 
-        for (int month = 0; month < 240; month++) {
+        startTime = clock();
+
+        for (int month = 0; month < 120; month++) {
             printf("Mois %d: ", month);
             updateRabbitPopulation(&population);
             printf("Population de %zu lapins\n", population.count);
@@ -50,6 +56,10 @@ int main(){
                 break;
             }
         }
+
+        endTime = clock();
+        timeSpent = (double)(endTime - startTime) / CLOCKS_PER_SEC;
+        printf("Temps écoulé pour la simulation : %.2f secondes\n", timeSpent);
     }
     return 0;
 }
