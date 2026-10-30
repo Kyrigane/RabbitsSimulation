@@ -84,7 +84,7 @@ void chooseDeath(Rabbit * r) {
     r->is_alive = genrand_real1() < monthlySurvivalRate;
 }
 
-int updateRabbit(Rabbit * r) {
+int updateRabbit(Rabbit * r, bool hasAdultMale) {
     if (!r->is_alive) {
         return 0; 
     }
@@ -98,7 +98,9 @@ int updateRabbit(Rabbit * r) {
         if (r->is_pregnant) {
             return chooseNbNewborns(r);
         }
-        choosePregnancy(r);
+        if (hasAdultMale) {
+            choosePregnancy(r);
+        }
     }
     return 0;
 }

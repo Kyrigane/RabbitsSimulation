@@ -90,7 +90,7 @@ int main(){
     for (int i=0; i < 10; i++) {
         initRabbit(&r);
         for (int month = 0; month < 240; month++) {
-            updateRabbit(&r);
+            updateRabbit(&r, true);
             showRabbit(&r);
             if (!r.is_alive) {
                 printf("Le lapin est mort à l'âge de %d mois.\n", r.age_month);

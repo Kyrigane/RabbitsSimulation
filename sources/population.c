@@ -22,8 +22,16 @@ void addRabbitToPopulation(RabbitPopulation * population, Rabbit * r) {
 }
 
 void updateRabbitPopulation(RabbitPopulation * population) {
+    bool hasAdultMale = false;
     for (size_t i = 0; i < population->count; i++) {
-        int nbNewborns = updateRabbit(population->rabbits[i]);
+        Rabbit *r = population->rabbits[i];
+        if (r->is_alive && !r->is_female && r->is_adult) {
+            hasAdultMale = true;
+            break;
+        }
+    }
+    for (size_t i = 0; i < population->count; i++) {
+        int nbNewborns = updateRabbit(population->rabbits[i], hasAdultMale);
         if (nbNewborns > 0) {
             for (int j = 0; j < nbNewborns; j++) {
                 Rabbit * new_rabbit = (Rabbit *)malloc(sizeof(Rabbit));

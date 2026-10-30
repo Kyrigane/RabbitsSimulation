@@ -40,10 +40,11 @@ int main(){
         printf("Simulation de la population de lapins %d:\n", iPopulation + 1);
         printf("===========================\n");
 
-        for (int month = 0; month < 24; month++) {
-            printf("Mois %d:\n", month);
+        for (int month = 0; month < 240; month++) {
+            printf("Mois %d: ", month);
             updateRabbitPopulation(&population);
-            showRabbitPopulation(&population);
+            printf("Population de %zu lapins\n", population.count);
+            //showRabbitPopulation(&population);
             if (population.count == 0) {
                 printf("Tous les lapins sont morts.\n");
                 break;
