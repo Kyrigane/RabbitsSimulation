@@ -36,7 +36,7 @@ int main(){
         // On force le genre pour avoir un couple de lapins
         femelle.is_female = true; 
         male.is_female = false;
-        initRabbitPopulation(&population, 10);
+        initRabbitPopulation(&population, 100000000);
         addRabbitToPopulation(&population, femelle);
         addRabbitToPopulation(&population, male);
 

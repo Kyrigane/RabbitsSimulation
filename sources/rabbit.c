@@ -1,5 +1,8 @@
 #include "rabbit.h"
 
+static const float SURVIVAL_YOUNG = 0.91578f; // powf(0.35f, 1.0f/12.0f) précalculé pour optimisation
+static const float SURVIVAL_ADULT = 0.95842f; // powf(0.60f, 1.0f/12.0f) précalculé pour optimisation
+
 void initRabbit(Rabbit * r) {
     r->age_month = 0;
     r->is_pregnant = false;
@@ -68,19 +71,24 @@ void chooseMaturity(Rabbit * r) {
 }
 
 void chooseDeath(Rabbit * r) {
-    float annualSurvivalRate=0.6; // Valeur par défaut pour les lapins adultes
     if (!r->is_alive) {
         return; 
     }
+    float monthlySurvivalRate;
     if (!r->is_adult) {
-        annualSurvivalRate = 0.35;
-    } else if ((r->age_month / 12) >= 15){
-        annualSurvivalRate = 0;
-    } 
-    else if ((r->age_month / 12) >= 10) {
-        annualSurvivalRate -= 0.1 * ((r->age_month / 12) - 9);
+        monthlySurvivalRate = SURVIVAL_YOUNG;
+    } else {
+        int age_years = r->age_month / 12;
+        if (age_years < 10) {
+            monthlySurvivalRate = SURVIVAL_ADULT;
+        } else if (age_years >= 15) {
+            monthlySurvivalRate = 0.0f;
+        } else {
+            float annualSurvivalRate = 0.6f - 0.1f * (age_years - 9);
+            monthlySurvivalRate = powf(annualSurvivalRate, 1.0f / 12.0f);
+        }
     }
-    float monthlySurvivalRate = powf(annualSurvivalRate, 1.0 / 12.0);
+    
     r->is_alive = genrand_real1() < monthlySurvivalRate;
 }
 
