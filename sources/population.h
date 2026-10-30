@@ -6,6 +6,7 @@ typedef struct {
     Rabbit * rabbits;
     size_t count;
     size_t capacity;
+    size_t adult_male_count;
 } RabbitPopulation;
 
 void initRabbitPopulation(RabbitPopulation * population, size_t initial_capacity); //Initialise la population de lapins

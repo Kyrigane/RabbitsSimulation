@@ -28,7 +28,7 @@ int main(){
     clock_t endTime;
     double timeSpent=0;
 
-    for (int iPopulation = 0; iPopulation < 10; iPopulation++) {
+    for (int iPopulation = 0; iPopulation < 20; iPopulation++) {
         Rabbit femelle;
         Rabbit male;
         initRabbit(&femelle);
@@ -46,10 +46,12 @@ int main(){
 
         startTime = clock();
 
-        for (int month = 0; month < 120; month++) {
-            printf("Mois %d: ", month);
+        for (int month = 0; month <= 240; month++) {
             updateRabbitPopulation(&population);
-            printf("Population de %zu lapins\n", population.count);
+            if (month % 12 == 0) {
+                printf("Année %d: ", month / 12);
+                printf("Population de %zu lapins\n", population.count);
+            }
             //showRabbitPopulation(&population);
             if (population.count == 0) {
                 printf("Tous les lapins sont morts.\n");
