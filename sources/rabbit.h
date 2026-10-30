@@ -1,19 +1,19 @@
 #include <stdbool.h>
 #include "mt19937.h"
+#include <stdint.h>
 
 #ifndef M_PI
 #define M_PI (3.14159265358979323846)
 #endif
 
-// Type bool est plus optimisé que int : utilise moins de mémoire et plus rapide à comparer
 
-typedef struct rabbit{
-    int age_month;
-    int nb_litter_per_year;
-    bool is_pregnant;
-    bool is_alive;
-    bool is_adult;
-    bool is_female;
+typedef struct rabbit {
+    uint8_t age_month;              // 8 bits : 0 à 255 (max 180 mois)
+    uint8_t nb_litter_per_year : 4; // 4 bits : 0 à 15 (max 9 portées)
+    uint8_t is_pregnant : 1;        // 1 bit
+    uint8_t is_alive : 1;           // 1 bit
+    uint8_t is_adult : 1;           // 1 bit
+    uint8_t is_female : 1;          // 1 bit
 } Rabbit;
 
 void initRabbit(Rabbit * r); //Initialise un lapin

@@ -28,14 +28,9 @@ int main(){
     clock_t endTime;
     double timeSpent=0;
 
-    for (int iPopulation = 0; iPopulation < 20; iPopulation++) {
-        Rabbit femelle;
-        Rabbit male;
-        initRabbit(&femelle);
-        initRabbit(&male);
-        // On force le genre pour avoir un couple de lapins
-        femelle.is_female = true; 
-        male.is_female = false;
+    for (int iPopulation = 0; iPopulation < 40; iPopulation++) {
+        Rabbit femelle = (Rabbit){12, 0, false, true, true, true}; // Lapine adulte
+        Rabbit male = (Rabbit){12, 0, false, true, true, false}; // Lapin adulte
         initRabbitPopulation(&population, 100000000);
         addRabbitToPopulation(&population, femelle);
         addRabbitToPopulation(&population, male);
@@ -46,7 +41,7 @@ int main(){
 
         startTime = clock();
 
-        for (int month = 0; month <= 240; month++) {
+        for (int month = 0; month <= 180; month++) { // 15 ANS DE SIMULATION
             updateRabbitPopulation(&population);
             if (month % 12 == 0) {
                 printf("Année %d: ", month / 12);
