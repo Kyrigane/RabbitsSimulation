@@ -86,3 +86,11 @@ void showRabbitPopulation(RabbitPopulation * population) {
         showRabbit(&population->rabbits[i]);
     }
 }
+
+void freeRabbitPopulation(RabbitPopulation * population) {
+    free(population->rabbits);
+    population->rabbits = NULL;
+    population->count = 0;
+    population->capacity = 0;
+    population->adult_male_count = 0;
+}
