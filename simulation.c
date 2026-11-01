@@ -3,17 +3,17 @@
 #include <time.h>
 #include <stdio.h>
 
-void simulate_fibonacci() {
+void simulate_fibonacci(int months) {
     printf("Simulation avec la suite de Fibonacci:\n");
 
     month_simulation simulation_fibonacci;
-    for (int month = 0; month <= 46; month++) {
+    for (int month = 0; month <= months; month++) {
         simulate_rabbit_fibonacci(&simulation_fibonacci, month);
         affiche_simulation(&simulation_fibonacci);
     }
 }
 
-void better_simulation() {
+void better_simulation(int nb_simulations, int nb_couples, int years) {
     unsigned long init[4]={0x123, 0x234, 0x345, 0x456}, length=4;
     init_by_array(init, length);
 
@@ -35,17 +35,14 @@ void better_simulation() {
     clock_t endTime;
     double timeSpent=0;
 
-    for (int iPopulation = 0; iPopulation < 40; iPopulation++) {
-        Rabbit femelle = (Rabbit){12, 0, false, true, true, true}; // Lapine adulte
-        Rabbit male = (Rabbit){12, 0, false, true, true, false}; // Lapin adulte
-        //Rabbit femelle2 = (Rabbit){12, 0, false, true, true, true}; // Deuxième lapine adulte
-        //Rabbit male2 = (Rabbit){12, 0, false, true, true, false}; // Deuxième lapin adulte
-
+    for (int iPopulation = 0; iPopulation < nb_simulations; iPopulation++) {
         initRabbitPopulation(&population, 100000000);
-        addRabbitToPopulation(&population, femelle);
-        addRabbitToPopulation(&population, male);
-        //addRabbitToPopulation(&population, femelle2);
-        //addRabbitToPopulation(&population, male2);
+        for (int i = 0; i < nb_couples; i++) {
+            Rabbit femelle = (Rabbit){12, 0, false, true, true, true}; // Lapine adulte
+            Rabbit male = (Rabbit){12, 0, false, true, true, false}; // Lapin adulte
+            addRabbitToPopulation(&population, femelle);
+            addRabbitToPopulation(&population, male);
+        }
 
         printf("===========================\n");
         printf("Simulation de la population de lapins %d:\n", iPopulation + 1);
@@ -53,7 +50,7 @@ void better_simulation() {
 
         startTime = clock();
 
-        for (int month = 0; month <= 180; month++) { // 15 ANS DE SIMULATION
+        for (int month = 0; month <= years * 12; month++) {
             
             fprintf(fichier_csv, "%d,%zu,%d\n", month, population.count, iPopulation + 1);
 
@@ -82,6 +79,9 @@ void better_simulation() {
 
     fclose(fichier_csv);
     fclose(fichier_stats);
+    
+    printf("===========================\n");
+    printf("Les résultats ont été exportés dans 'resultats.csv' et 'stats.csv'.\n");
     printf("Simulations terminées.\n");
 
 }
@@ -99,10 +99,36 @@ int main(){
     scanf("%d", &choix);
     switch (choix) {
         case 1:
-            simulate_fibonacci();
+            int months;
+            printf("Entrez le nombre de mois pour la simulation Fibonacci (max 46): ");
+            scanf("%d", &months);
+            if (months < 0 || months > 46) {
+                printf("Nombre de mois invalide.\n");
+                return 1;
+            }
+            simulate_fibonacci(months);
             break;
         case 2:
-            better_simulation();
+            int nb_simulations, nb_couples, years;
+            printf("Entrez le nombre de simulations à effectuer (max 40): ");
+            scanf("%d", &nb_simulations);
+            if (nb_simulations < 1 || nb_simulations > 40) {
+                printf("Nombre de simulations invalide.\n");
+                return 1;
+            }
+            printf("Entrez le nombre de couples initiaux de lapins (max 5): ");
+            scanf("%d", &nb_couples);
+            if (nb_couples < 1 || nb_couples > 5) {
+                printf("Nombre de couples invalide.\n");
+                return 1;
+            }
+            printf("Entrez le nombre d'années pour la simulation (max 15): ");
+            scanf("%d", &years);
+            if (years < 1 || years > 15) {
+                printf("Nombre d'années invalide.\n");
+                return 1;
+            }
+            better_simulation(nb_simulations, nb_couples, years);
             break;
         default:
             printf("Choix invalide.\n");
