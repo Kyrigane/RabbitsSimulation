@@ -3,30 +3,32 @@
 #include <time.h>
 #include <stdio.h>
 
-int main(){
+void simulate_fibonacci() {
+    printf("Simulation avec la suite de Fibonacci:\n");
+
+    month_simulation simulation_fibonacci;
+    for (int month = 0; month <= 180; month++) {
+        simulate_rabbit_fibonacci(&simulation_fibonacci, month);
+        if (month % 12 == 0) {
+            printf("Année %d: ", month / 12);
+            affiche_simulation(&simulation_fibonacci);
+        }
+    }
+}
+
+void better_simulation() {
     unsigned long init[4]={0x123, 0x234, 0x345, 0x456}, length=4;
     init_by_array(init, length);
 
     printf("======================================================\n");
-    printf("Bienvenue dans le simulateur de population de lapins!\n");
+    printf("Simulation avancée avec la population de lapins:\n");
     printf("======================================================\n");
-
-    printf("Simulation avec la suite de Fibonacci:\n");
-
-    month_simulation simulation_fibonacci;
-    for (int i = 0; i <= 10; i++) {
-        simulate_rabbit_fibonacci(&simulation_fibonacci, i);
-        affiche_simulation(&simulation_fibonacci);
-    }
-    
-    printf("======================================================\n");
-    printf("Simulation avec la population de lapins:\n");
 
     FILE *fichier_csv = fopen("resultats.csv", "w");
     FILE *fichier_stats = fopen("stats.csv", "w");
     if (fichier_csv == NULL || fichier_stats == NULL) {
         printf("Erreur lors de la création des fichiers CSV.\n");
-        return 1;
+        return;
     }
     fprintf(fichier_csv, "Mois,Population,Experience\n");
     fprintf(fichier_stats, "Experience,Survecu,Temps_s\n");
@@ -84,6 +86,32 @@ int main(){
     fclose(fichier_csv);
     fclose(fichier_stats);
     printf("Simulations terminées.\n");
+
+}
+
+
+int main(){
+    printf("======================================================\n");
+    printf("Bienvenue dans le simulateur de population de lapins!\n");
+    printf("======================================================\n");
+
+    int choix;
+    printf("Choisissez le type de simulation:\n");
+    printf("1. Simulation avec la suite de Fibonacci\n");
+    printf("2. Simulation avancée avec la population de lapins\n");
+    scanf("%d", &choix);
+    switch (choix) {
+        case 1:
+            simulate_fibonacci();
+            break;
+        case 2:
+            better_simulation();
+            break;
+        default:
+            printf("Choix invalide.\n");
+            break;
+    }
+
 
     return 0;
 }
