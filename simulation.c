@@ -7,12 +7,9 @@ void simulate_fibonacci() {
     printf("Simulation avec la suite de Fibonacci:\n");
 
     month_simulation simulation_fibonacci;
-    for (int month = 0; month <= 180; month++) {
+    for (int month = 0; month <= 46; month++) {
         simulate_rabbit_fibonacci(&simulation_fibonacci, month);
-        if (month % 12 == 0) {
-            printf("Année %d: ", month / 12);
-            affiche_simulation(&simulation_fibonacci);
-        }
+        affiche_simulation(&simulation_fibonacci);
     }
 }
 
