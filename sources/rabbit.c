@@ -93,6 +93,7 @@ void chooseDeath(Rabbit * r) {
 }
 
 int updateRabbit(Rabbit * r, bool hasAdultMale) {
+    int newborns = 0;
     if (!r->is_alive) {
         return 0; 
     }
@@ -104,13 +105,13 @@ int updateRabbit(Rabbit * r, bool hasAdultMale) {
             chooseNbLitterPerYear(r);
         }
         if (r->is_pregnant) {
-            return chooseNbNewborns(r);
+            newborns = chooseNbNewborns(r);
         }
         if (hasAdultMale) {
             choosePregnancy(r);
         }
     }
-    return 0;
+    return newborns;
 }
 
 void showRabbit(Rabbit * r) {

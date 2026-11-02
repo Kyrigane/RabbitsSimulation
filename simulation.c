@@ -39,6 +39,7 @@ void better_simulation(int nb_simulations, int nb_couples, int years) {
         initRabbitPopulation(&population, 100000000);
         for (int i = 0; i < nb_couples; i++) {
             Rabbit femelle = (Rabbit){12, 0, false, true, true, true}; // Lapine adulte
+            chooseNbLitterPerYear(&femelle);
             Rabbit male = (Rabbit){12, 0, false, true, true, false}; // Lapin adulte
             addRabbitToPopulation(&population, femelle);
             addRabbitToPopulation(&population, male);
