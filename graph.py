@@ -21,16 +21,16 @@ temps_moyen = simulations_reussies["Temps_s"].mean() if nb_survivantes > 0 else 
 df["Année"] = df["Mois"] / 12
 df["Population_Millions"] = df["Population"] / 1_000_000
 
-# Extraction et calculs spécifiques pour la 15ème année (mois 180)
+# Extraction et calculs spécifiques pour la 10ème année (mois 120)
 # Note : seules les simulations n'ayant pas crashé (count > 0) ont atteint ce mois
-pop_an_15 = df[df["Mois"] == 180]["Population_Millions"]
+pop_an_10 = df[df["Mois"] == 120]["Population_Millions"]
 
 if nb_survivantes > 0:
-    moyenne = pop_an_15.mean()
-    mediane = pop_an_15.median()
-    ecart_type = pop_an_15.std()
-    val_min = pop_an_15.min()
-    val_max = pop_an_15.max()
+    moyenne = pop_an_10.mean()
+    mediane = pop_an_10.median()
+    ecart_type = pop_an_10.std()
+    val_min = pop_an_10.min()
+    val_max = pop_an_10.max()
     
     marge_erreur = 1.96 * (ecart_type / np.sqrt(nb_survivantes))
     ic_min = moyenne - marge_erreur
@@ -53,7 +53,7 @@ ax = sns.lineplot(
 )
 
 # Personnalisation des titres et labels
-plt.title("Évolution de la population de lapins sur 15 ans : un couple de lapins\n(Moyenne et écart-type sur 40 simulations)", 
+plt.title("Évolution de la population de lapins sur 10 ans : un couple de lapins\n(Moyenne et écart-type sur 40 simulations)", 
           fontsize=14, fontweight='bold', pad=15, color=couleur_texte)
 plt.xlabel("Temps (Années)", fontsize=12, fontweight='bold', color=couleur_texte)
 plt.ylabel("Nombre de lapins (en millions)", fontsize=12, fontweight='bold', color=couleur_texte)
@@ -68,7 +68,7 @@ texte_stats = (
     f"Bilan Global (40 expériences) :\n"
     f"Simulations non éteintes : {nb_survivantes} / 40\n"
     f"Temps de calcul moyen : {temps_moyen:.2f} sec\n\n"
-    f"Statistiques au bout de 15 ans (en millions) :\n"
+    f"Statistiques au bout de 10 ans (en millions) :\n"
     f"Moyenne : {moyenne:.1f} \n"
     f"Médiane : {mediane:.1f}\n"
     f"Écart-type (σ) : {ecart_type:.1f}\n"

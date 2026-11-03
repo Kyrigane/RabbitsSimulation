@@ -8,8 +8,8 @@ void initRabbit(Rabbit * r) {
     r->is_pregnant = false;
     r->is_alive = true;
     r->is_adult = false;
-    chooseNbLitterPerYear(r);
     chooseGender(r);
+    chooseNbLitterPerYear(r);
 }
 
 void chooseGender(Rabbit * r) {

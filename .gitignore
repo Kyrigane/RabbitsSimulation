@@ -1,4 +1,3 @@
 .vscode/
-stats.csv
-resultats.csv
+*.csv
 *.png

@@ -117,15 +117,15 @@ int main(){
                 printf("Nombre de simulations invalide.\n");
                 return 1;
             }
-            printf("Entrez le nombre de couples initiaux de lapins (max 5): ");
+            printf("Entrez le nombre de couples initiaux de lapins (max 3): ");
             scanf("%d", &nb_couples);
-            if (nb_couples < 1 || nb_couples > 5) {
+            if (nb_couples < 1 || nb_couples > 3) {
                 printf("Nombre de couples invalide.\n");
                 return 1;
             }
-            printf("Entrez le nombre d'années pour la simulation (max 15): ");
+            printf("Entrez le nombre d'années pour la simulation (max 10): ");
             scanf("%d", &years);
-            if (years < 1 || years > 15) {
+            if (years < 1 || years > 10) {
                 printf("Nombre d'années invalide.\n");
                 return 1;
             }
